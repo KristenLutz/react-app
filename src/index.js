@@ -2,35 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 
-const square = React.createElement('div', {
-  style: {
-    width: '100px',
-    height: '100px',
-    backgroundColor: 'red',
-    margin: '10px',
-  }
-})
-const blueSquare = React.createElement('div', {
-  style: {
-    width: '100px',
-    height: '100px',
-    backgroundColor: 'blue',
-    margin: '10px',
-  }
-})
+import { getBoxStyle } from './Spiral.js'
 
 
-const container = React.createElement(
-  // The first argument specifies the element's type
-  'div',
 
-  // The second argument specifies the element's attributes, or "props"
-  { style: { border: '5px solid blue' } },
+var boxes2 = [];
+for (var i=0; i<=15;i++) {
+	if((i+1)%3===0&&(i+1)%5===0){
+		boxes2.push(React.createElement('div', { style: getBoxStyle(i), key: i }, 
+				React.createElement('strong', {}, 'FizzBuzz'))
+		)
+	}else if((i+1)%3===0){
+		boxes2.push(React.createElement('div', { style: getBoxStyle(i), key: i }, 
+				React.createElement('strong', {}, 'Fizz'))
+		)
+	}else if((i+1)%5===0){
+		boxes2.push(React.createElement('div', { style: getBoxStyle(i), key: i }, 
+				React.createElement('strong', {}, 'Buzz'))
+		)
+	}else{
+		boxes2.push(React.createElement('div', { style: getBoxStyle(i), key: i }, i+1))
 
-  // The remaining arguments list the element's children
-  square,
-  square,
-  blueSquare
+	}
+}
+
+ReactDOM.render(
+  React.createElement('div', {}, boxes2),
+  document.getElementById('app')
 )
 
-ReactDOM.render(container, document.getElementById('root'))
